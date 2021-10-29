@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.tom.curso.domain.Categoria;
 import com.tom.curso.repository.CategoriaRepository;
+import com.tom.curso.services.exception.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ public class CategoriaService {
     public Categoria buscarCategoria(Integer id) {
 
         Optional<Categoria> categoria = this.categoriaRepository.findById(id);
-        return categoria.orElse(null);
+        return categoria.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado, id: "+id));
+
     }
 
 }
