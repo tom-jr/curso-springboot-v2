@@ -26,4 +26,11 @@ public class CategoriaService {
         return this.categoriaRepository.save(categoria);
     }
 
+    public void alterarCategoria(Categoria categoria,Integer id) {
+        categoria.setId(id);
+     Categoria   categoriaDePersitencia = this.buscarCategoria(categoria.getId());
+     categoriaDePersitencia.setNome(categoria.getNome());
+     this.categoriaRepository.save(categoria);
+    }
+
 }
