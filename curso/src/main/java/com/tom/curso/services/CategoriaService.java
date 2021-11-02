@@ -17,8 +17,13 @@ public class CategoriaService {
     public Categoria buscarCategoria(Integer id) {
 
         Optional<Categoria> categoria = this.categoriaRepository.findById(id);
-        return categoria.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado, id: "+id));
+        return categoria.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado, id: " + id));
 
+    }
+
+    public Categoria inserirCategoria(Categoria categoria) {
+        categoria.setId(null);
+        return this.categoriaRepository.save(categoria);
     }
 
 }
