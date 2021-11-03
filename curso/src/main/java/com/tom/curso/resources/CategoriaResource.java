@@ -1,8 +1,10 @@
 package com.tom.curso.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import com.tom.curso.domain.Categoria;
+import com.tom.curso.domain.dtos.CategoriaDTO;
 import com.tom.curso.services.CategoriaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +49,11 @@ public class CategoriaResource {
     public ResponseEntity<Void> deletarCategoriaPorId(@PathVariable Integer id){
         this.categoriaService.deletarCategoriaPorId(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET )
+    public ResponseEntity<List<CategoriaDTO>> listarCategorias(){
+        List<CategoriaDTO> categoriasDTO = this.categoriaService.listarCategorias();
+        return ResponseEntity.ok().body(categoriasDTO);
     }
 }

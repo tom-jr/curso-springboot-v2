@@ -1,8 +1,12 @@
 package com.tom.curso.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.tom.curso.domain.Categoria;
+import com.tom.curso.domain.dtos.CategoriaDTO;
 import com.tom.curso.repository.CategoriaRepository;
 import com.tom.curso.services.exception.ObjectNotFoundException;
 
@@ -43,6 +47,13 @@ public class CategoriaService {
             throw new com.tom.curso.services.exception.DataIntegrityViolationException(
                     String.format("Não é possível deletar categoria de id %d, pois a mesma possui vinculos", id));
         }
+    }
+
+    public List<CategoriaDTO> listarCategorias() {
+        List<Categoria> categorias = this.categoriaRepository.findAll();
+        List<CategoriaDTO> categoriasDTO = categorias.stream().map(item -> new CategoriaDTO(item))
+                .collect(Collectors.toList());
+        return categoriasDTO;
     }
 
 }
