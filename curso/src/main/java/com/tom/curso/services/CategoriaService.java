@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import com.tom.curso.domain.Categoria;
 import com.tom.curso.domain.dtos.CategoriaDTO;
 import com.tom.curso.repository.CategoriaRepository;
@@ -63,6 +65,12 @@ public class CategoriaService {
 
         
         return this.categoriaRepository.findAll(pageRequest);
+    }
+
+    public Categoria fromCategoriaDTOToCategoria(@Valid CategoriaDTO categoriaDTO) {
+        Categoria categoria = new Categoria(null, categoriaDTO.getNome());
+        this.inserirCategoria(categoria);
+        return categoria;
     }
 
 }

@@ -3,6 +3,8 @@ package com.tom.curso.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.tom.curso.domain.Categoria;
 import com.tom.curso.domain.dtos.CategoriaDTO;
 import com.tom.curso.services.CategoriaService;
@@ -32,8 +34,8 @@ public class CategoriaResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> inserirCategoria(@RequestBody Categoria categoria) {
-        categoria = this.categoriaService.inserirCategoria(categoria);
+    public ResponseEntity<Void> inserirCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
+        Categoria categoria = this.categoriaService.fromCategoriaDTOToCategoria(categoriaDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId())
                 .toUri();
