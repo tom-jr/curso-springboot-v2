@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.tom.curso.domain.Cliente;
 import com.tom.curso.domain.dtos.ClienteDTO;
+import com.tom.curso.domain.dtos.ClienteNewDTO;
 import com.tom.curso.services.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,13 @@ public class ClienteResource {
         Page<Cliente> pageClientes = this.clienteService.listarPageCliente(page, size, direction, orderBy);
         Page<ClienteDTO> pageClientesDTO = pageClientes.map(item -> new ClienteDTO(item));
         return ResponseEntity.ok().body(pageClientesDTO);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> inserirNovoCliente(@Valid @RequestBody ClienteNewDTO clienteNewDTO){
+        Cliente cliente =  this.clienteService.fromClienteDTOToCliente(clienteNewDTO);
+        cliente =  this.clienteService.inserirNovoCliente(cliente);
+
+        return ResponseEntity.created(null).build();
     }
 }

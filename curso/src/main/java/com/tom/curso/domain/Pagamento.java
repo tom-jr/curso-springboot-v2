@@ -15,7 +15,7 @@ import com.tom.curso.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Pagamento implements Serializable{
+public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
     // attributes
     @Id
@@ -37,9 +37,9 @@ public abstract class Pagamento implements Serializable{
     }
 
     public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
-       super();
+        super();
         this.id = id;
-        this.estado = estado.getCod();
+        this.estado = estado == null ? null : estado.getCod();
         this.pedido = pedido;
     }
 

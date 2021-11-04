@@ -33,7 +33,7 @@ public class CategoriaService {
     public Categoria inserirCategoria(Categoria categoria) {
         categoria.setId(null);
         return this.categoriaRepository.save(categoria);
-    }
+    }   
 
     public void alterarCategoria(Categoria categoria, Integer id) {
         categoria.setId(id);
