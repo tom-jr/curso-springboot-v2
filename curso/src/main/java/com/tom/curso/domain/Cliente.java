@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,7 @@ public class Cliente implements Serializable {
 
     private String nome;
 
+    @Column(unique = true)
     private String email;
 
     private String cpfOuCnpj;
@@ -37,17 +39,16 @@ public class Cliente implements Serializable {
 
     // relations
 
-    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
-
     @ElementCollection
-	@CollectionTable(name="TELEFONE")
-	private Set<String> telefones = new HashSet<>();
+    @CollectionTable(name = "TELEFONE")
+    private Set<String> telefones = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
-    List<Pedido> pedidos =  new ArrayList<>();
+    List<Pedido> pedidos = new ArrayList<>();
 
     // constructors
 
@@ -63,8 +64,6 @@ public class Cliente implements Serializable {
     }
 
     // getters and setters
-    
-    
 
     public Integer getId() {
         return id;
@@ -129,10 +128,8 @@ public class Cliente implements Serializable {
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
     }
-    
 
     // equals and hashCod
-
 
     @Override
     public int hashCode() {
